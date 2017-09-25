@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "722008996115",
+    "firebase_url": "https://automatic-chess.firebaseio.com",
+    "project_id": "automatic-chess",
+    "storage_bucket": "automatic-chess.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722008996115:android:67e885c53ccbe3bc",
+        "android_client_info": {
+          "package_name": "com.akura.kursat.automaticchess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722008996115-tec9befbpkc0378d727m4u0hr0i6p8s0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClwp3SiLKbEy-lCTfA6fCOAGNoHo8dGK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
