@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AutomaticChess.iml" filepath="$PROJECT_DIR$/AutomaticChess.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AutomaticChessGit.iml" filepath="$PROJECT_DIR$/AutomaticChessGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/itemProfile"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Profile" />
+        <item
+            android:id="@+id/itemTableId"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Enter TableId" />
+
+        <item
+            android:id="@+id/itemHelp"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Help" />
+        <item
+            android:id="@+id/itemExit"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Exit" />
+    </group>
+
+
+
+</menu>
