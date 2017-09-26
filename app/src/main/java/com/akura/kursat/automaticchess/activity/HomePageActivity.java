@@ -17,7 +17,7 @@ import android.widget.Button;
 
 import com.akura.kursat.automaticchess.R;
 
-public class HomePage extends AppCompatActivity
+public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Button play;
@@ -44,8 +44,8 @@ public class HomePage extends AppCompatActivity
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent i=new Intent(getBaseContext(),"kürsatın sayfasının adı".class);
-                startActivity(i);*/
+                Intent i=new Intent(getBaseContext(),GameListActivity.class);
+                startActivity(i);
             }
         });
 
