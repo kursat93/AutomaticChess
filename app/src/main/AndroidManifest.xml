@@ -15,6 +15,11 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".activity.EditTableIdActivity"
+            android:label="@string/title_activity_home_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".activity.HomePageActivity"
             android:label="@string/title_activity_home_page"
             android:theme="@style/AppTheme.NoActionBar" />

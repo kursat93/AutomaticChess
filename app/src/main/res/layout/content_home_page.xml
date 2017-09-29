@@ -32,11 +32,11 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="62dp"
 
             android:text="User Name"
             android:textSize="36sp"
-            app:layout_constraintHorizontal_bias="0.561"
+            app:layout_constraintHorizontal_bias="0.572"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,10 +49,11 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="11dp"
+            android:editable="true"
             android:text="Table Id:"
             android:textSize="30sp"
-            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintHorizontal_bias="0.168"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/twUserName" />
@@ -65,13 +66,52 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="0dp"
             android:text="Score:"
             android:textSize="30sp"
-            app:layout_constraintHorizontal_bias="0.091"
+            app:layout_constraintHorizontal_bias="0.168"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/twTableId" />
+
+        <ImageButton
+            android:id="@+id/ibEdit"
+            android:layout_width="32dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/twScore"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            app:layout_constraintLeft_toRightOf="@+id/twEditName"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintHorizontal_bias="0.107" />
+
+        <TextView
+            android:id="@+id/twEditName"
+            android:layout_width="133dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="44dp"
+            android:enabled="true"
+            app:layout_constraintHorizontal_bias="0.146"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/twScore" />
+
+        <TextView
+            android:id="@+id/twGetTableId"
+            android:layout_width="94dp"
+            android:layout_height="49dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="24dp"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toRightOf="@+id/twTableId"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/twUserName" />
 
 
 </android.support.constraint.ConstraintLayout>
