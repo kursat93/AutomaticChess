@@ -2,6 +2,8 @@
 
     <string name="app_name">AutomaticChess</string>
     <string name="title_activity_home_page">HomePage</string>
+    <string name="title_activity_crate_game">CreateGame</string>
+    <string name="title_activity_game_list">GameList</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

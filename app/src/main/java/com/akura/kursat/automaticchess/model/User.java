@@ -27,6 +27,12 @@ public class User {
     public User() {
 
     }
+    public User(String user_id) {
+
+        this.user_id=user_id;
+
+    }
+
 
     public String getUser_id() {
         return user_id;
@@ -80,13 +86,13 @@ public class User {
 
 
     public void getUser(){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child("user_id");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(user_id);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //User user = dataSnapshot.getValue(User.class);
                 User user = dataSnapshot.getValue(User.class);
-                System.out.println(user);
+
             }
 
             @Override

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "722008996115-nhog8i7snjg02grece5rs912unldsnsm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.akura.kursat.automaticchess",
+            "certificate_hash": "bbb2cfb7bda99bc39c20a64460763fbf16409a58"
+          }
+        },
+        {
           "client_id": "722008996115-tec9befbpkc0378d727m4u0hr0i6p8s0.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722008996115-tec9befbpkc0378d727m4u0hr0i6p8s0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

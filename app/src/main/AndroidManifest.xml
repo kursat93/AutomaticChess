@@ -39,9 +39,20 @@
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.CreateGameActivity"
+            android:label="@string/title_activity_crate_game"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.GameListActivity"
+            android:label="@string/title_activity_game_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.GameActivity"></activity>
     </application>
 
 </manifest>

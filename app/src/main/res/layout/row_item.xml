@@ -1,54 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/linearLayout">
-
-    <TextView
-        android:id="@+id/txt_room_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:text="Room Name"/>
-
-    <TextView
-        android:id="@+id/txt_game_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Game in process"/>
-
-</LinearLayout>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity=""
-        android:layout_marginRight="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="26dp"
         android:layout_alignBottom="@+id/linearLayout"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+       android:layout_height="1dp"
+        android:layout_alignBottom="@+id/linearLayout"
+        android:background="#fff"
+        android:id="@+id/view"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="16dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txt_room_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="created by " />
+            android:text="Room Name"
+            android:textColor="#ffffff"
+            android:textSize="40sp" />
 
         <TextView
-            android:id="@+id/txt_game_host"
+            android:id="@+id/txt_game_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="kursat"/>
+            android:text="Game in process"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="created by "
+        android:textColor="#ffffff"
 
-</RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.887"
+        app:layout_constraintLeft_toRightOf="@+id/linearLayout"
+        android:layout_marginLeft="8dp" />
+
+    <TextView
+        android:id="@+id/txt_game_host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kursat"
+        android:textColor="#ffffff"
+
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.887" />
+
+</android.support.constraint.ConstraintLayout>
