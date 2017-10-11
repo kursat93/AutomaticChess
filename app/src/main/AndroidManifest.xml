@@ -53,6 +53,27 @@
             android:label="@string/title_activity_game_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.GameActivity"></activity>
+
+
+
+
+        <activity
+            android:name=".chess.HomeActivity"
+            android:label="@string/title_activity_home_page"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".chess.GameActivity"
+            android:screenOrientation="landscape"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

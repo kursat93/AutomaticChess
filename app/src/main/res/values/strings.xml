@@ -17,4 +17,9 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_password">This password is too short</string>
 
+    <string name="tileSize">30dp</string>
+    <string name="tilePadding">30dp</string>
+
+    <string name="whiteKnight">wK</string>
+
 </resources>

@@ -74,6 +74,7 @@ public class RoomAdapter extends BaseAdapter {
                 if(r!=null){
                     roomName.setText(r.getRoomName());
                     hostPlayer.setText(r.getHostName());
+                    gameStatus.setText(r.getCurrentNumPlayer());
                 }
 
             }

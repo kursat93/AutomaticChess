@@ -182,7 +182,7 @@ public class Pieces {
                 '}';
     }
 
-    public void getPieces(){
+  /**  public void getPieces(){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("rooms").child(room_id).child(player_id);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -198,5 +198,5 @@ public class Pieces {
             }
         });
 
-    }
+    }*/
 }

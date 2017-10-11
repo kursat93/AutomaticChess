@@ -22,6 +22,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.akura.kursat.automaticchess.R;
+
+import com.akura.kursat.automaticchess.chess.*;
+
 import com.akura.kursat.automaticchess.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +33,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -146,8 +150,13 @@ public class HomePageActivity extends AppCompatActivity
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getBaseContext(),GameListActivity.class);
-                startActivity(i);
+                // Intent i=new Intent(getBaseContext(),GameListActivity.class);
+                //startActivity(i);
+                Intent i=new Intent(getBaseContext(), com.akura.kursat.automaticchess.chess.GameActivity.class);
+                i.putExtra("roomID","-KvDiDroj4wY0suZxSk3");
+                i.putExtra("color","White");
+               startActivity(i);
+
             }
         });
 
