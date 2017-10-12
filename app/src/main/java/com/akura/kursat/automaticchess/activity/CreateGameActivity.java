@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.akura.kursat.automaticchess.R;
+import com.akura.kursat.automaticchess.chess.*;
 import com.akura.kursat.automaticchess.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,8 +42,8 @@ public class CreateGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_game);
         user =FirebaseAuth.getInstance().getCurrentUser();
       ArrayList<String> colorList = new ArrayList<>();
-        colorList.add("white");
-        colorList.add("black");
+        colorList.add("White");
+        colorList.add("Wlack");
 
         roomNameTxt = (EditText)findViewById(R.id.name_room);
         color = (Spinner)findViewById(R.id.color_choose);
@@ -66,10 +67,10 @@ public class CreateGameActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if(position==0){
-                   choosenColor="white";
+                   choosenColor="White";
                 }
                 else{
-                    choosenColor="black";
+                    choosenColor="Black";
 
                 }
 
@@ -123,7 +124,7 @@ public class CreateGameActivity extends AppCompatActivity {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rooms");
                  mRoomId =reference.push().getKey();
 
-                if(choosenColor.equals("white")){
+                if(choosenColor.equals("White")){
                     reference.child(mRoomId).child("playerWhite").setValue(user.getUid());// user ID
                     reference.child(mRoomId).child("playerBlack").setValue("");// oponent boş ID
 
@@ -137,9 +138,12 @@ public class CreateGameActivity extends AppCompatActivity {
                 System.out.println("name name name "+ host);
                 reference.child(mRoomId).child("hostName").setValue(host); // user Name
 
-                Intent intent = new Intent(CreateGameActivity.this, GameActivity.class);
+                Intent intent = new Intent(CreateGameActivity.this, com.akura.kursat.automaticchess.chess.GameActivity.class);
 
-                intent.putExtra("room_id", mRoomId);
+
+                intent.putExtra("roomID",mRoomId);
+                intent.putExtra("color",choosenColor);
+                intent.putExtra("creator",true); // creator flag
                 startActivity(intent);
 
             }

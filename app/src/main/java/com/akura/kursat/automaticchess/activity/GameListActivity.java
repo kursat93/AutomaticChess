@@ -71,6 +71,7 @@ public class GameListActivity extends AppCompatActivity {
                                // String message = "abc";
                                // intent.putExtra(EXTRA_MESSAGE, message);
                                 startActivity(intent);
+                                finish();
                             }
                         });
 

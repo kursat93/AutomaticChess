@@ -150,12 +150,14 @@ public class HomePageActivity extends AppCompatActivity
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Intent i=new Intent(getBaseContext(),GameListActivity.class);
-                //startActivity(i);
-                Intent i=new Intent(getBaseContext(), com.akura.kursat.automaticchess.chess.GameActivity.class);
+                 Intent i=new Intent(getBaseContext(),GameListActivity.class);
+                startActivity(i);
+             /**   Intent i=new Intent(getBaseContext(), com.akura.kursat.automaticchess.chess.GameActivity.class);
                 i.putExtra("roomID","-KvDiDroj4wY0suZxSk3");
                 i.putExtra("color","White");
                startActivity(i);
+*/
+
 
             }
         });

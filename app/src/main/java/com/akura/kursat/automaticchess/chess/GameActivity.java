@@ -1,5 +1,8 @@
 package com.akura.kursat.automaticchess.chess;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.akura.kursat.automaticchess.R;
+import com.akura.kursat.automaticchess.activity.GameListActivity;
+import com.akura.kursat.automaticchess.activity.HomePageActivity;
 import com.akura.kursat.automaticchess.model.Pieces;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,9 +61,10 @@ public class GameActivity extends AppCompatActivity {
     DatabaseReference ref;
     String userColor="";
     String curPiece="";
+    Boolean isCreator=false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { // sadece katılan için flag koy
         super.onCreate(savedInstanceState);
         hide();
         setContentView(R.layout.game_activity);
@@ -66,7 +72,8 @@ public class GameActivity extends AppCompatActivity {
        Bundle extras =getIntent().getExtras();
         roomID= (String) extras.get("roomID");
         userColor= (String) extras.get("color");
-
+        isCreator= (Boolean) extras.get("creator");
+        player=userColor;
 
         //burda eski kordinatları tutuyoruz
         /**
@@ -250,12 +257,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void handleInput(View touchedTile){
-        if(gameOver)
+        if(gameOver){
+            exitGame();
             return;
-        if(turn % 2 == 0)// oyuncuyu gelen oyuncu yap turu geldiğinde oynasın
+        }
+
+      /**  if(turn % 2 == 0)// oyuncuyu gelen oyuncu yap turu geldiğinde oynasın
             player = "Black";
         else
             player = "White";
+        */
+        if(player.equals("White")&&(turn % 2 != 0)){
+            // oynasın
+
+        }else if(player.equals("Black")&&(turn % 2 == 0)){
+            // oynasın
+        }
+        else{
+            Toast.makeText(getBaseContext(),"not your turn",Toast.LENGTH_LONG).show();
+            return;
+        }
+
 
         if(firstSelection){
             source = (TileView) touchedTile;
@@ -575,5 +597,48 @@ public class GameActivity extends AppCompatActivity {
             passant = "";
 
         return true;
+    }
+
+
+    public void exitGame(){
+
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(GameActivity.this);
+        builder1.setMessage("Do you want to leave the game");
+        builder1.setCancelable(false);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        Intent intent = new Intent(GameActivity.this, HomePageActivity.class);
+                        // String message = "abc";
+                        // intent.putExtra(EXTRA_MESSAGE, message);
+                      if(isCreator){
+                          ref.removeValue();
+                      }
+                        startActivity(intent);
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
     }
 }
