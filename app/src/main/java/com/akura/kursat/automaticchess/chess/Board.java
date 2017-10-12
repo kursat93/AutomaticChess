@@ -98,7 +98,7 @@ public class Board {
         Map pieceslist = new HashMap<>();
         if(pieceslist.isEmpty()){
 
-            if(playerColor.equals("white")){
+            if(playerColor.equals("White")){
                 pieceslist.put("wKing","e1");
                 pieceslist.put("wQueen","d1");
                 pieceslist.put("wBishop1","c1");
