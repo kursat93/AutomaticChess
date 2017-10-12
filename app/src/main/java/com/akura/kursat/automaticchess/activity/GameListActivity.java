@@ -59,6 +59,10 @@ public class GameListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+               final Room room = (Room) listView.getItemAtPosition(i);
+                System.out.println(room);
+
+
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(GameListActivity.this);
                 builder1.setMessage("Do you want to join the game");
                 builder1.setCancelable(false);
@@ -69,10 +73,10 @@ public class GameListActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                                 Intent intent = new Intent(GameListActivity.this, com.akura.kursat.automaticchess.chess.GameActivity.class);
-                                Room room = (Room) listView.getSelectedItem();
-                                String mRoomId= room.getRoom_id();
+
+
                                 String choosenColor = "Black";
-                                intent.putExtra("roomID",mRoomId);
+                                intent.putExtra("roomID",room.getRoom_id());
                                 intent.putExtra("color",choosenColor);
                                 intent.putExtra("creator",false); // creator flag
                                 startActivity(intent);

@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity {
         // get from prev activity  ? or getfrom database
         turn = 1;
         gameOver = false;
-        player="";
+       // player="";
         Board.initializeBoard();
 
 
@@ -269,11 +269,14 @@ public class GameActivity extends AppCompatActivity {
         else
             player = "White";
         */
+        System.out.println(" player  "+player + " turn"+turn);
         if(player.equals("White")&&(turn % 2 != 0)){
             // oynasın
+            System.out.println(" player white "+turn);
 
         }else if(player.equals("Black")&&(turn % 2 == 0)){
             // oynasın
+            System.out.println(" player black "+turn);
         }
         else{
             Toast.makeText(getBaseContext(),"not your turn",Toast.LENGTH_LONG).show();
