@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.akura.kursat.automaticchess.R;
 import com.akura.kursat.automaticchess.adapter.RoomAdapter;
+import com.akura.kursat.automaticchess.chess.*;
 import com.akura.kursat.automaticchess.model.Room;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,9 +68,13 @@ public class GameListActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
-                                Intent intent = new Intent(GameListActivity.this, GameActivity.class);
-                               // String message = "abc";
-                               // intent.putExtra(EXTRA_MESSAGE, message);
+                                Intent intent = new Intent(GameListActivity.this, com.akura.kursat.automaticchess.chess.GameActivity.class);
+                                Room room = (Room) listView.getSelectedItem();
+                                String mRoomId= room.getRoom_id();
+                                String choosenColor = "Black";
+                                intent.putExtra("roomID",mRoomId);
+                                intent.putExtra("color",choosenColor);
+                                intent.putExtra("creator",false); // creator flag
                                 startActivity(intent);
                                 finish();
                             }

@@ -124,15 +124,15 @@ public class CreateGameActivity extends AppCompatActivity {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rooms");
                  mRoomId =reference.push().getKey();
 
-                if(choosenColor.equals("White")){
+               // if(choosenColor.equals("White")){
                     reference.child(mRoomId).child("playerWhite").setValue(user.getUid());// user ID
                     reference.child(mRoomId).child("playerBlack").setValue("");// oponent boş ID
 
-                }else{
+               /** }else{
                     reference.child(mRoomId).child("playerBlack").setValue(user.getUid()); // User ID
                     reference.child(mRoomId).child("playerWhite").setValue("");//  oponenet boş ID
 
-                }
+                }*/
                 reference.child(mRoomId).child("room_id").setValue(mRoomId);
                 reference.child(mRoomId).child("roomName").setValue(roomName);
                 System.out.println("name name name "+ host);
@@ -142,7 +142,7 @@ public class CreateGameActivity extends AppCompatActivity {
 
 
                 intent.putExtra("roomID",mRoomId);
-                intent.putExtra("color",choosenColor);
+                intent.putExtra("color","White"); //choosenColor
                 intent.putExtra("creator",true); // creator flag
                 startActivity(intent);
 

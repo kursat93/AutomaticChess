@@ -121,7 +121,9 @@ public class GameActivity extends AppCompatActivity {
                     }
                     System.out.println("buralar  doluuu");
                 }else{
+                    System.out.println("Wait for opponent ");
                     System.out.println("burarlar null");
+                    Toast.makeText(GameActivity.this, "rakibi bekle", Toast.LENGTH_SHORT).show();
                 }
 
 
