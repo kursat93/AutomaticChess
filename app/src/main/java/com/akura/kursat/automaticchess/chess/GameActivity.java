@@ -387,7 +387,13 @@ public class GameActivity extends AppCompatActivity {
                  *  hamle tamamlanınca  eski kareyi boşalt yeni kareye  görseli yerleştir ve taşın ynei konumu
                  *  TODO: Burda Firebase'i güncelle
                  */
-                ref.child(opponent).child(pieceDes).setValue("");
+               //
+                System.out.println("niye patlıyorum "+pieceDes);
+                if(!pieceDes.equals("")){
+                    ref.child(opponent).child(pieceDes).setValue("");
+                    pieceDes="";
+                }
+
                 ref.child(userColor).child(NcurPiece).setValue(newLocation);
 
                     System.out.println(" pice = " + NcurPiece+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
