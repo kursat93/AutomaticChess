@@ -398,10 +398,19 @@ public class GameActivity extends AppCompatActivity {
 
                     System.out.println(" pice = " + NcurPiece+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
 
+
+                for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+
+                    if(piece.getKey().equals(NcurPiece)){
+                       piece.setValue(newLocation);
+                    }
+                }
+
                 target.setImageDrawable(source.getDrawable());
                 target.currentPiece = source.currentPiece;
                 source.setImageDrawable(null);
                 source.currentPiece = "empty";
+
 
                 //add to list
                 list.add(startingLabel + " " + currentLabel.substring(currentLabel.length()-2));
@@ -616,6 +625,14 @@ public class GameActivity extends AppCompatActivity {
 
                 System.out.println(" pice = " + pieceName + "  source loacation=  " + oldLocation + "  new Location = " + newLocation);
 
+                for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+
+                    if(piece.getKey().equals(pieceName)){
+                        piece.setValue(newLocation);
+                    }
+                }
+
+
                 target.setImageDrawable(source.getDrawable());
                 target.currentPiece = source.currentPiece;
                 source.setImageDrawable(null);
@@ -714,11 +731,12 @@ public class GameActivity extends AppCompatActivity {
      */
     public static boolean executeMove(String origin, String destination, String promo, boolean keepIt, int castling){
 
-
+        System.out.println("executedayım  destinationumuzda budur  "+destination);
         for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
-
+            System.out.println("fordayım piece.getvalue "+piece.getValue());
+            System.out.println("fordayım destination "+destination);
             if(destination.equals(piece.getValue())){
-
+                System.out.println("dardayım ");
                 pieceDes=piece.getKey();
                 System.out.println("destination taşı "+ pieceDes);
             }
