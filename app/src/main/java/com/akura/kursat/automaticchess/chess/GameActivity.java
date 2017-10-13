@@ -96,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
         if(userColor.equals("White")){
             opponent = "Black";
         }else{
-            opponent="Black";
+            opponent="White";
         }
 
 
@@ -107,6 +107,8 @@ public class GameActivity extends AppCompatActivity {
                 Map<String,String> list = (Map<String, String>) dataSnapshot.getValue();
 
                 if(list!= null){
+
+
 
                     for(Map.Entry<String,String> pieceOfBoard:pieceOldCordinate.entrySet()){
                         for(Map.Entry<String,String> pieceOfFire:list.entrySet()){
@@ -200,6 +202,19 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void updateFromFirebase( String pieceName,String newCordinate){
+
+        if(player.equals("White")&&(turn % 2 != 0)){
+            // oynasın
+            System.out.println(" player white "+turn);
+
+        }else if(player.equals("Black")&&(turn % 2 == 0)){
+            // oynasın
+            System.out.println(" player black "+turn);
+        }
+        else{
+            Toast.makeText(getBaseContext(),"not your turn",Toast.LENGTH_LONG).show();
+            return;
+        }
 
        String oldCordinate="";
         Set keySet;
