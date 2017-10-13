@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Toast;
 
@@ -114,7 +115,9 @@ public class GameActivity extends AppCompatActivity {
                         for(Map.Entry<String,String> pieceOfFire:list.entrySet()){
                             if(pieceOfBoard.getKey().equals(pieceOfFire.getKey())){
                                 if(!pieceOfBoard.getValue().equals(pieceOfFire.getValue())){
-                                    updateFromFirebase(pieceOfFire.getKey(),pieceOfFire.getValue());
+                                  //  updateFromFirebase(pieceOfFire.getKey(),pieceOfFire.getValue());
+
+                                    handleInput(pieceOfFire.getKey(),pieceOfFire.getValue());
                                 }
                             }
 
@@ -225,28 +228,28 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
-        int oid = getResources().getIdentifier(oldCordinate,"id",this.getPackageName());
+
+
+       int oid = getResources().getIdentifier(oldCordinate,"id",this.getPackageName());
         int nid = getResources().getIdentifier(newCordinate,"id",this.getPackageName());
 
-        source = (TileView) findViewById(oid);
-         target = (TileView) findViewById(nid);
+       TileView source = (TileView) findViewById(oid);
+        TileView   target = (TileView) findViewById(nid);
 
         String originPoints =  Mapping.convert(oldCordinate);
 
         int originFile = Character.getNumericValue(originPoints.charAt(0));
         int originRank = Character.getNumericValue(originPoints.charAt(1));
 
-        System.out.println("ben neyim "+originFile);
-        System.out.println("ben neyim "+originRank);
 
         pieceName = Board.tiles[originFile][originRank].currentPiece;
         source.currentPiece=pieceName;
-
-        System.out.println("ilk tas nedir "+source.currentPiece);
-
-
+        Board.tiles[originFile][originRank].currentPiece="empty";
+        target.setImageDrawable(null);
+        target.currentPiece="";
         target.setImageDrawable(source.getDrawable());
         target.currentPiece = source.currentPiece;
+        System.out.println("1 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
 
          originPoints =  Mapping.convert(newCordinate);
 
@@ -254,12 +257,15 @@ public class GameActivity extends AppCompatActivity {
          originRank = Character.getNumericValue(originPoints.charAt(1));
         Board.tiles[originFile][originRank].currentPiece=target.currentPiece;
 
+        System.out.println("2 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
 
         System.out.println(source.currentPiece);
 
         source.setImageDrawable(null);
+        System.out.println("merhaba ben resim "+source.getDrawable());
         source.currentPiece = "empty";
 
+        System.out.println("3 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
 
         /**
          *  TODO: karşıdan hamle geldiğinde şahmat olup olmadığını kontrol et ?  198. satır ?? şahmetla ilgili sanırım
@@ -269,7 +275,7 @@ public class GameActivity extends AppCompatActivity {
           //  System.out.println("budur hocam= "+s);
        // getResources().
 
-        ++turn;
+        turn++;
 
     }
 
@@ -475,6 +481,219 @@ public class GameActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             firstSelection = true;
         }
+    }
+
+    public void handleInput(String pieceN, String newCor){
+        if(gameOver){
+            exitGame();
+            return;
+        }
+
+        /**  if(turn % 2 == 0)// oyuncuyu gelen oyuncu yap turu geldiğinde oynasın
+         player = "Black";
+         else
+         player = "White";
+         */
+        System.out.println(" player  "+player + " turn"+turn);
+        if(opponent.equals("White")&&(turn % 2 != 0)){
+            // oynasın
+            System.out.println(" player white "+turn);
+
+        }else if(opponent.equals("Black")&&(turn % 2 == 0)){
+            // oynasın
+            System.out.println(" player black "+turn);
+        }
+        else{
+            Toast.makeText(getBaseContext(),"not your turn",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        String oldCor="";
+        Set keySet;
+        keySet =pieceOldCordinate.keySet();
+        for(Object piece:keySet){
+            if(pieceN.equals(piece)){
+                oldCor=pieceOldCordinate.get(piece);
+            }
+        }
+
+        int oid = getResources().getIdentifier(oldCor,"id",this.getPackageName());
+        int nid = getResources().getIdentifier(newCor,"id",this.getPackageName());
+
+     //   TileView source = (TileView) findViewById(oid);
+       // TileView   target = (TileView) findViewById(nid);
+
+            //source = (TileView) touchedTile;
+           source = (TileView) findViewById(oid);
+
+            currentLabel = getResources().getResourceName(source.getId()); // ID si kare kordinatı
+            if(source.getDrawable() == null) // karede taş yok
+                return;
+            //  System.out.println("cur labp   "+currentLabel);
+            String originPoints =  Mapping.convert(currentLabel.substring(currentLabel.length()-2)); // örnek a5 den a yı gönderiyor
+            //  System.out.println("after map   "+originPoints);
+            //  System.out.println("current label   "+currentLabel);
+
+            for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+
+                if(piece.getValue().equals(currentLabel.substring(currentLabel.length()-2))){
+                    System.out.println(piece.getKey());
+                    curPiece=piece.getKey();
+                }
+            }
+
+
+            int originFile = Character.getNumericValue(originPoints.charAt(0));
+            int originRank = Character.getNumericValue(originPoints.charAt(1));
+            // System.out.println("origin file  "+originFile);
+            // System.out.println("orşgşn rank  "+originRank);
+
+            oldLocation = currentLabel.substring(currentLabel.length()-2);   // sonradan eklendi for firebase
+            pieceName = Board.tiles[originFile][originRank].currentPiece;
+
+            //  System.out.println(" bu nedir bu "+Board.tiles[originFile][originRank].currentPiece.charAt(0));
+            // System.out.println(" bu nedir bu "+Board.tiles[originFile][originRank].currentPiece);
+            // System.out.println(" bben kimim "+Character.toLowerCase(player.charAt(0)));
+
+            if(Board.tiles[originFile][originRank].currentPiece.charAt(0) != Character.toLowerCase(opponent.charAt(0))) {
+                Toast.makeText(GameActivity.this, "That is not your piece!",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            validMoves = Rules.findPossibleMoves( currentLabel.substring(currentLabel.length()-2) );
+            if(validMoves.isEmpty()) {
+                Toast.makeText(GameActivity.this, "Nothing is possible with that piece\nTry again...",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            //at this point it is safe to act on this piece
+           // firstSelection = false;
+
+           // target = (TileView) touchedTile;
+         target = (TileView) findViewById(nid);
+            String startingLabel = currentLabel.substring(currentLabel.length()-2);
+            currentLabel = getResources().getResourceName(target.getId());
+
+            if(target != source) {
+                boolean foundMatch = false;
+                for (String z : validMoves) {
+                    if (z.equals(currentLabel.substring(currentLabel.length() - 2))) {
+                        boolean leftKingInCheck;
+                        newLocation = currentLabel.substring(currentLabel.length() - 2);
+                        leftKingInCheck = !executeMove(startingLabel, currentLabel.substring(currentLabel.length() - 2), "", true, 0);
+                        if (leftKingInCheck) {
+                            Toast.makeText(GameActivity.this, "Don't leave your king in check!\nTry again...",
+                                    Toast.LENGTH_SHORT).show();
+                            //  firstSelection = true;
+                            return;
+                        }
+                        foundMatch = true;
+                        break;
+                    }
+                }
+                if (!foundMatch) {
+                    Toast.makeText(GameActivity.this, "Illegal move.\nTry again...",
+                            Toast.LENGTH_SHORT).show();
+                    // firstSelection = true;
+                    return;
+                }
+
+
+                /**
+                 *  hamle tamamlanınca  eski kareyi boşalt yeni kareye  görseli yerleştir ve taşın ynei konumu
+                 *  TODO: Burda Firebase'i güncelle
+                 */
+
+                ref.child(userColor).child(curPiece).setValue(newLocation);
+
+                System.out.println(" pice = " + pieceName + "  source loacation=  " + oldLocation + "  new Location = " + newLocation);
+
+                target.setImageDrawable(source.getDrawable());
+                target.currentPiece = source.currentPiece;
+                source.setImageDrawable(null);
+                source.currentPiece = "empty";
+
+                //add to list
+                list.add(startingLabel + " " + currentLabel.substring(currentLabel.length() - 2));
+
+                /*TODO: Need to incorporate some UI elements that indicate check and checkmate!*/
+                boolean putEnemyInCheck;
+                if (opponent.equals("White")) {
+                    putEnemyInCheck = Rules.leavesKingInCheck(blackKing[0], "b");
+                    if (putEnemyInCheck) {
+                        blackKing[1] = "check";
+                        gameOver = Rules.determineCheckmate(turn + 1);
+                        if (gameOver) {
+                            Toast.makeText(GameActivity.this, "Checkmate! White wins!",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(GameActivity.this, "Check!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    } else
+                        blackKing[1] = "safe";
+                } else {
+                    putEnemyInCheck = Rules.leavesKingInCheck(whiteKing[0], "w");
+                    if (putEnemyInCheck) {
+                        whiteKing[1] = "check";
+                        gameOver = Rules.determineCheckmate(turn + 1);
+                        if (gameOver) {
+                            Toast.makeText(GameActivity.this, "Checkmate! Black wins!",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(GameActivity.this, "Check!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    } else
+                        whiteKing[1] = "safe";
+                }
+
+                //support for our castling implementation?
+
+                /*TODO: Might be possible to implement undo button here*/
+                ++turn;
+                // firstSelection = true;
+
+                if (gameOver) {
+
+                    String fullList = "Here are the recorded moves: \n";
+                    for (String x : list) {
+                        fullList += x;
+                        fullList += ",\t";
+                    }
+                    Toast.makeText(GameActivity.this, fullList,
+                            Toast.LENGTH_LONG).show();
+
+                    /*TODO: Show button the lets user save game. Give it an onclicklistener and have
+                    that function start a dialog that asks for a name. Then do serialization and write
+                    the file to system memory
+                    My tip is to just implement the serialization first and then add buttons and
+                    dialogs later*/
+                    //Serialize
+                    try {
+                        FileOutputStream fos = new FileOutputStream("List of moves");
+                        ObjectOutputStream oos = new ObjectOutputStream(fos);
+                        oos.writeObject(list);
+                        File f = new File(".");
+                        Toast.makeText(GameActivity.this, "Moves have been saved.\nFile path = " + f.getAbsolutePath(),
+                                Toast.LENGTH_LONG).show();
+                        oos.close();
+                        fos.close();
+
+                    } catch (Exception ioe) {
+                        ioe.printStackTrace();
+                        Toast.makeText(GameActivity.this, "failed to write game data",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                return;
+            }
+            // Here the player must have touched the starting piece again
+           // Toast.makeText(GameActivity.this, "Move canceled...",
+            //        Toast.LENGTH_SHORT).show();
+          //  firstSelection = true;
+
     }
 
     /**
