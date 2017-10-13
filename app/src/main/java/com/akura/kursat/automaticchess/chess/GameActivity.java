@@ -388,6 +388,22 @@ public class GameActivity extends AppCompatActivity {
                  *  TODO: Burda Firebase'i güncelle
                  */
                //
+                String destlabel = getResources().getResourceName(target.getId());
+                                destlabel=destlabel.substring(destlabel.length()-2);
+
+                System.out.println("  destinationumuzda budur  "+destlabel);
+                for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+                    System.out.println("fordayım piece.getvalue "+piece.getValue());
+                    System.out.println("fordayım destination "+destlabel);
+                    if(destlabel.equals(piece.getValue())){
+                        System.out.println("dardayım ");
+                        pieceDes=piece.getKey();
+                        System.out.println("destination taşı "+ pieceDes);
+                    }
+                }
+
+
+
                 System.out.println("niye patlıyorum "+pieceDes);
                 if(!pieceDes.equals("")){
                     ref.child(opponent).child(pieceDes).setValue("");
@@ -400,12 +416,15 @@ public class GameActivity extends AppCompatActivity {
 
 
                 for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
-
+                        System.out.println("map güncelleme piece "+piece.getKey());
+                    System.out.println("map güncelleme loacal "+NcurPiece);
                     if(piece.getKey().equals(NcurPiece)){
                        piece.setValue(newLocation);
+                        System.out.println("map güncellendi  "+NcurPiece+ " burdayım artık  "+newLocation);
+                        break;
                     }
                 }
-
+                System.out.println("map güncellendi forun dışındayım  "+pieceOldCordinate.get("bPawnF")+ " burdayım artık  "+newLocation);
                 target.setImageDrawable(source.getDrawable());
                 target.currentPiece = source.currentPiece;
                 source.setImageDrawable(null);
@@ -731,16 +750,7 @@ public class GameActivity extends AppCompatActivity {
      */
     public static boolean executeMove(String origin, String destination, String promo, boolean keepIt, int castling){
 
-        System.out.println("executedayım  destinationumuzda budur  "+destination);
-        for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
-            System.out.println("fordayım piece.getvalue "+piece.getValue());
-            System.out.println("fordayım destination "+destination);
-            if(destination.equals(piece.getValue())){
-                System.out.println("dardayım ");
-                pieceDes=piece.getKey();
-                System.out.println("destination taşı "+ pieceDes);
-            }
-        }
+
 
         origin = Mapping.convert(origin);
         int originFile = Character.getNumericValue(origin.charAt(0));
