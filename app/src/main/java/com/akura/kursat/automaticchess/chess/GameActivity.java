@@ -62,6 +62,7 @@ public class GameActivity extends AppCompatActivity {
     DatabaseReference ref;
     String userColor="";
     String curPiece="";
+    String NcurPiece="";
     Boolean isCreator=false;
     String opponent;
     @Override
@@ -304,7 +305,7 @@ public class GameActivity extends AppCompatActivity {
             return;
         }
 
-
+            System.out.println("turn "+turn+"  first sledction  "+firstSelection);
         if(firstSelection){
             source = (TileView) touchedTile;
             currentLabel = getResources().getResourceName(source.getId()); // ID si kare kordinatı
@@ -318,8 +319,8 @@ public class GameActivity extends AppCompatActivity {
             for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
 
                        if(piece.getValue().equals(currentLabel.substring(currentLabel.length()-2))){
-                           System.out.println(piece.getKey());
-                           curPiece=piece.getKey();
+                           System.out.println("ben hangi taşım  " +piece.getKey());
+                           NcurPiece=piece.getKey();
                        }
                 }
 
@@ -386,9 +387,9 @@ public class GameActivity extends AppCompatActivity {
                  *  TODO: Burda Firebase'i güncelle
                  */
             
-                ref.child(userColor).child(curPiece).setValue(newLocation);
+                ref.child(userColor).child(NcurPiece).setValue(newLocation);
 
-                    System.out.println(" pice = " + pieceName+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
+                    System.out.println(" pice = " + NcurPiece+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
 
                 target.setImageDrawable(source.getDrawable());
                 target.currentPiece = source.currentPiece;
@@ -540,7 +541,7 @@ public class GameActivity extends AppCompatActivity {
                     System.out.println(piece.getKey());
                     curPiece=piece.getKey();
                 }
-            }
+            }// burayı yoruma ldım
 
 
             int originFile = Character.getNumericValue(originPoints.charAt(0));
@@ -604,7 +605,7 @@ public class GameActivity extends AppCompatActivity {
                  *  TODO: Burda Firebase'i güncelle
                  */
 
-                ref.child(userColor).child(curPiece).setValue(newLocation);
+                ref.child(opponent).child(curPiece).setValue(newLocation);
 
                 System.out.println(" pice = " + pieceName + "  source loacation=  " + oldLocation + "  new Location = " + newLocation);
 
@@ -709,12 +710,13 @@ public class GameActivity extends AppCompatActivity {
         int originFile = Character.getNumericValue(origin.charAt(0));
         int originRank = Character.getNumericValue(origin.charAt(1));
         String originPiece = Board.tiles[originFile][originRank].currentPiece;
-
+        System.out.println("orşgşn piecw "+ originPiece);
 
         destination = Mapping.convert(destination);
         int destinationFile = Character.getNumericValue(destination.charAt(0));
         int destinationRank = Character.getNumericValue(destination.charAt(1));
         String destinationPiece = Board.tiles[destinationFile][destinationRank].currentPiece;
+        System.out.println("destination piecw "+ destinationPiece);
 
         Board.tiles[destinationFile][destinationRank].currentPiece = originPiece;
         Board.tiles[originFile][originRank].currentPiece = "empty";
