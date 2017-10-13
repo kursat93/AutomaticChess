@@ -62,7 +62,7 @@ public class GameActivity extends AppCompatActivity {
     String userColor="";
     String curPiece="";
     Boolean isCreator=false;
-
+    String opponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) { // sadece katılan için flag koy
         super.onCreate(savedInstanceState);
@@ -91,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
         Board.initializeBoard();
 
 
-        String opponent;
+
 
         if(userColor.equals("White")){
             opponent = "Black";
@@ -203,11 +203,11 @@ public class GameActivity extends AppCompatActivity {
 
     public void updateFromFirebase( String pieceName,String newCordinate){
 
-        if(player.equals("White")&&(turn % 2 != 0)){
+        if(opponent.equals("White")&&(turn % 2 != 0)){
             // oynasın
             System.out.println(" player white "+turn);
 
-        }else if(player.equals("Black")&&(turn % 2 == 0)){
+        }else if(opponent.equals("Black")&&(turn % 2 == 0)){
             // oynasın
             System.out.println(" player black "+turn);
         }
