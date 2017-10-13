@@ -65,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
     String NcurPiece="";
     Boolean isCreator=false;
     String opponent;
+    static String pieceDes="";
     @Override
     protected void onCreate(Bundle savedInstanceState) { // sadece katılan için flag koy
         super.onCreate(savedInstanceState);
@@ -386,7 +387,7 @@ public class GameActivity extends AppCompatActivity {
                  *  hamle tamamlanınca  eski kareyi boşalt yeni kareye  görseli yerleştir ve taşın ynei konumu
                  *  TODO: Burda Firebase'i güncelle
                  */
-            
+                ref.child(opponent).child(pieceDes).setValue("");
                 ref.child(userColor).child(NcurPiece).setValue(newLocation);
 
                     System.out.println(" pice = " + NcurPiece+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
@@ -706,6 +707,17 @@ public class GameActivity extends AppCompatActivity {
      * that the player wishes in exchange for a pawn
      */
     public static boolean executeMove(String origin, String destination, String promo, boolean keepIt, int castling){
+
+
+        for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+
+            if(destination.equals(piece.getValue())){
+
+                pieceDes=piece.getKey();
+                System.out.println("destination taşı "+ pieceDes);
+            }
+        }
+
         origin = Mapping.convert(origin);
         int originFile = Character.getNumericValue(origin.charAt(0));
         int originRank = Character.getNumericValue(origin.charAt(1));
