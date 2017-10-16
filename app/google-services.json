@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "722008996115",
-    "firebase_url": "https://automatic-chess.firebaseio.com",
-    "project_id": "automatic-chess",
-    "storage_bucket": "automatic-chess.appspot.com"
+    "project_number": "270335565974",
+    "firebase_url": "https://automaticchessboard.firebaseio.com",
+    "project_id": "automaticchessboard",
+    "storage_bucket": "automaticchessboard.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:722008996115:android:67e885c53ccbe3bc",
+        "mobilesdk_app_id": "1:270335565974:android:67e885c53ccbe3bc",
         "android_client_info": {
           "package_name": "com.akura.kursat.automaticchess"
         }
       },
       "oauth_client": [
         {
-          "client_id": "722008996115-nhog8i7snjg02grece5rs912unldsnsm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.akura.kursat.automaticchess",
-            "certificate_hash": "bbb2cfb7bda99bc39c20a64460763fbf16409a58"
-          }
-        },
-        {
-          "client_id": "722008996115-tec9befbpkc0378d727m4u0hr0i6p8s0.apps.googleusercontent.com",
+          "client_id": "270335565974-o972bik183pgasntdmk591sg8kvd60n0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyClwp3SiLKbEy-lCTfA6fCOAGNoHo8dGK0"
+          "current_key": "AIzaSyCX9DD-KGmtV2i_WQlWgirJIXSB79DSheE"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "722008996115-tec9befbpkc0378d727m4u0hr0i6p8s0.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
