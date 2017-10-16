@@ -35,6 +35,7 @@ public class CreateGameActivity extends AppCompatActivity {
     private String roomName;
     private String host;
     private FirebaseUser user;
+    int flag=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class CreateGameActivity extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 createRoom();
 
 
@@ -114,37 +116,37 @@ public class CreateGameActivity extends AppCompatActivity {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User u = dataSnapshot.getValue(User.class);
-                host=u.getName();
-                System.out.println("get name "+ u.getName());
-                System.out.println(" name "+ u);
+                if(flag==1){
+                    flag=0;
+                    User u = dataSnapshot.getValue(User.class);
+                    host=u.getName();
 
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rooms");
+                    mRoomId =reference.push().getKey();
 
-
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rooms");
-                 mRoomId =reference.push().getKey();
-
-               // if(choosenColor.equals("White")){
+                    // if(choosenColor.equals("White")){
                     reference.child(mRoomId).child("playerWhite").setValue(user.getUid());// user ID
                     reference.child(mRoomId).child("playerBlack").setValue("");// oponent boş ID
 
-               /** }else{
-                    reference.child(mRoomId).child("playerBlack").setValue(user.getUid()); // User ID
-                    reference.child(mRoomId).child("playerWhite").setValue("");//  oponenet boş ID
+                    /** }else{
+                     reference.child(mRoomId).child("playerBlack").setValue(user.getUid()); // User ID
+                     reference.child(mRoomId).child("playerWhite").setValue("");//  oponenet boş ID
 
-                }*/
-                reference.child(mRoomId).child("room_id").setValue(mRoomId);
-                reference.child(mRoomId).child("roomName").setValue(roomName);
-                System.out.println("name name name "+ host);
-                reference.child(mRoomId).child("hostName").setValue(host); // user Name
+                     }*/
+                    reference.child(mRoomId).child("room_id").setValue(mRoomId);
+                    reference.child(mRoomId).child("roomName").setValue(roomName);
+                    System.out.println("name name name "+ host);
+                    reference.child(mRoomId).child("hostName").setValue(host); // user Name
 
-                Intent intent = new Intent(CreateGameActivity.this, com.akura.kursat.automaticchess.chess.GameActivity.class);
+                    Intent intent = new Intent(CreateGameActivity.this, com.akura.kursat.automaticchess.chess.GameActivity.class);
 
 
-                intent.putExtra("roomID",mRoomId);
-                intent.putExtra("color","White"); //choosenColor
-                intent.putExtra("creator",true); // creator flag
-                startActivity(intent);
+                    intent.putExtra("roomID",mRoomId);
+                    intent.putExtra("color","White"); //choosenColor
+                    intent.putExtra("creator",true);// creator flag
+                    startActivity(intent);
+                }
+
 
             }
 

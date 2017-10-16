@@ -60,6 +60,7 @@ public class GameActivity extends AppCompatActivity {
     String roomID="";
     FirebaseUser curUser;
     DatabaseReference ref;
+    DatabaseReference refUser;
     String userColor="";
     String curPiece="";
     String NcurPiece="";
@@ -87,6 +88,9 @@ public class GameActivity extends AppCompatActivity {
 
         curUser = FirebaseAuth.getInstance().getCurrentUser();
         ref= FirebaseDatabase.getInstance().getReference("rooms").child(roomID);
+        refUser=FirebaseDatabase.getInstance().getReference("users").child(curUser.getUid()).child("currentRoom");
+        refUser.setValue(roomID);
+
         // get from prev activity  ? or getfrom database
         turn = 1;
         gameOver = false;
@@ -197,13 +201,6 @@ public class GameActivity extends AppCompatActivity {
             actionBar.hide();
         }
     }
-
-
-
-
-
-
-
 
 
     public void updateFromFirebase( String pieceName,String newCordinate){
@@ -323,7 +320,7 @@ public class GameActivity extends AppCompatActivity {
                            System.out.println("ben hangi taşım  " +piece.getKey());
                            NcurPiece=piece.getKey();
                        }
-                }
+            }
 
 
             int originFile = Character.getNumericValue(originPoints.charAt(0));
@@ -408,6 +405,7 @@ public class GameActivity extends AppCompatActivity {
 
                 target.setImageDrawable(source.getDrawable());
                 target.currentPiece = source.currentPiece;
+
                 source.setImageDrawable(null);
                 source.currentPiece = "empty";
 
@@ -917,5 +915,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
        // super.onBackPressed();
+        //odayı sil userin içinden de room id yi sil
     }
 }

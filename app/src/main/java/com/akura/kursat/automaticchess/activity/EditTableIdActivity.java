@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.akura.kursat.automaticchess.R;
 import com.akura.kursat.automaticchess.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,10 +31,12 @@ public class EditTableIdActivity extends AppCompatActivity {
         oldTableId=(TextView)findViewById(R.id.twYourTableId);
         newTableId=(EditText)findViewById(R.id.etEditTableId);
         editTableId=(Button)findViewById(R.id.btnEditTableId);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference("users").child("user_id");
+        FirebaseUser fu= FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(fu.getUid());
         mDatabase_tableId=mDatabase.child("table_id");
         //mevcut table id yi ekranda yazdırıyor
+
+        mDatabase_tableId.setValue(newTableId.getText().toString().trim());
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -49,31 +53,36 @@ public class EditTableIdActivity extends AppCompatActivity {
         });
 
         //butona tıklayınca table id si güncelleniyor
-        editTableId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User user=dataSnapshot.getValue(User.class);
-                        user.setTable_id(newTableId.getText().toString());
-                        mDatabase_tableId.setValue(user.getTable_id());
-
-                        Intent i=new Intent(getBaseContext(),HomePageActivity.class);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                Intent i=new Intent(EditTableIdActivity.this,HomePageActivity.class);
-                startActivity(i);
-        }
 
 
+            editTableId.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User user=dataSnapshot.getValue(User.class);
+                            user.setTable_id(newTableId.getText().toString());
+                            mDatabase_tableId.setValue(user.getTable_id());
 
-        });
+                            Intent i=new Intent(getBaseContext(),HomePageActivity.class);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    Intent i=new Intent(EditTableIdActivity.this,HomePageActivity.class);
+                    startActivity(i);
+                }
+
+
+
+            });
+
+
+
 
 
 

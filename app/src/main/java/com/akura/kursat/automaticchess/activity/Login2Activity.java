@@ -107,8 +107,11 @@ public class Login2Activity extends AppCompatActivity {
                                     //editor.putBoolean(getString(R.string.user_logged), true);
                                     //editor.apply();
                                     Intent intent = new Intent(Login2Activity.this, HomePageActivity.class);
+                               // myProgressDialog.show();
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                                     startActivity(intent);
+
                             }
                         }
                     }

@@ -1,5 +1,6 @@
 package com.akura.kursat.automaticchess.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class HomePageActivity extends AppCompatActivity
     private TextView name;
     private ImageButton imageButtonEdit;
     private TextView getTableId;
+    private TextView username;
 
 
     private AlertDialog dialog;
@@ -50,6 +52,7 @@ public class HomePageActivity extends AppCompatActivity
     private DatabaseReference mDatabase;
     private DatabaseReference mDatabase_name;
 
+    private ProgressDialog myProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +60,16 @@ public class HomePageActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        myProgressDialog = new ProgressDialog(this);
+        myProgressDialog.setMessage(getString(R.string.loading_message));
+        myProgressDialog.show();
+       // myProgressDialog.setProgress(10);
+       //
+
         name=(TextView) findViewById(R.id.twEditName);
         imageButtonEdit=(ImageButton)findViewById(R.id.ibEdit);
         getTableId=(TextView)findViewById(R.id.twGetTableId);
+        username=(TextView)findViewById(R.id.twUserName);
 
         FirebaseUser fu= FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(fu.getUid());
@@ -70,7 +80,9 @@ public class HomePageActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                myProgressDialog.dismiss();
                 name.setText(user.getName());
+                username.setText(user.getName());
                 if(user.getTable_id()==null){
                     getTableId.setHint("null");}
 

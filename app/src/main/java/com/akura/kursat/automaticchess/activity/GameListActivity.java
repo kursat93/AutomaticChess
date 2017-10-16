@@ -67,6 +67,9 @@ public class GameListActivity extends AppCompatActivity {
                 builder1.setMessage("Do you want to join the game");
                 builder1.setCancelable(false);
 
+
+
+
                 builder1.setPositiveButton(
                         "Yes",
                         new DialogInterface.OnClickListener() {
@@ -121,11 +124,6 @@ public class GameListActivity extends AppCompatActivity {
                 }
 
                 adapterset();
-
-
-
-
-
             }
 
             @Override
