@@ -327,6 +327,10 @@ public class GameActivity extends AppCompatActivity {
 
                        if(piece.getValue().equals(currentLabel.substring(currentLabel.length()-2))){
                            System.out.println("ben hangi taşım  " +piece.getKey());
+                           if(!opponent.substring(0,1).equalsIgnoreCase(piece.getKey().substring(0,1))) {
+                               Toast.makeText(getBaseContext(), " yanlış taş ", Toast.LENGTH_LONG).show();
+                               return;
+                           }
                            NcurPiece=piece.getKey();
                        }
             }
@@ -445,6 +449,13 @@ public class GameActivity extends AppCompatActivity {
                 source.setImageDrawable(null);
                 source.currentPiece = "empty";
 
+                System.out.println("****************************");
+                for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+                    System.out.println("tas "+piece.getKey());
+                    System.out.println("kordinat "+piece.getValue());
+                    System.out.println("");
+                }
+                System.out.println("****************************");
 
                 //add to list
                 list.add(startingLabel + " " + currentLabel.substring(currentLabel.length()-2));
