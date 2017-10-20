@@ -327,7 +327,7 @@ public class GameActivity extends AppCompatActivity {
 
                        if(piece.getValue().equals(currentLabel.substring(currentLabel.length()-2))){
                            System.out.println("ben hangi taşım  " +piece.getKey());
-                           if(!opponent.substring(0,1).equalsIgnoreCase(piece.getKey().substring(0,1))) {
+                           if(opponent.substring(0,1).equalsIgnoreCase(piece.getKey().substring(0,1))) {
                                Toast.makeText(getBaseContext(), " yanlış taş ", Toast.LENGTH_LONG).show();
                                return;
                            }
@@ -407,11 +407,11 @@ public class GameActivity extends AppCompatActivity {
                  //   System.out.println("2 fordayım destination "+destlabel);
                     if(destlabel.equals(piece.getValue())){
                       //  System.out.println("dardayım ");
-                        if(!piece.getKey().substring(0,1).equalsIgnoreCase(opponent.substring(0,1))){
+                      /**  if(!piece.getKey().substring(0,1).equalsIgnoreCase(opponent.substring(0,1))){
                             System.out.println(" ilk "+piece.getKey().substring(0,1));
                             System.out.println(" ikinci "+opponent.substring(0,1));
                             break;
-                        }
+                        }*/
                         piece.setValue("");
                         pieceDes=piece.getKey();
                         System.out.println("destination taşı "+ pieceDes);
@@ -422,9 +422,12 @@ public class GameActivity extends AppCompatActivity {
 
               //  System.out.println("2 niye patlıyorum "+pieceDes);
                 if(!pieceDes.equals("")){
-                    ref.child(opponent).child(pieceDes).setValue("");
-                    System.out.println("ne güncelliyorum  opponent"+opponent+"  piecesDes  "+pieceDes);
-                    pieceDes="";
+                    if(pieceDes.substring(0,1).equalsIgnoreCase(opponent.substring(0,1))){
+                        ref.child(opponent).child(pieceDes).setValue("");
+                        System.out.println("ne güncelliyorum  opponent"+opponent+"  piecesDes  "+pieceDes);
+                        pieceDes="";
+                    }
+
                 }
 
                 ref.child(userColor).child(NcurPiece).setValue(newLocation);
@@ -675,26 +678,38 @@ public class GameActivity extends AppCompatActivity {
                  *  TODO: Burda Firebase'i güncelle
                  */
 
-              //  String destlabel = getResources().getResourceName(targetFromFireBase.getId());
-              //  destlabel=destlabel.substring(destlabel.length()-2);
+                String destlabel = getResources().getResourceName(targetFromFireBase.getId());
+                destlabel=destlabel.substring(destlabel.length()-2);
 
-             //   System.out.println("1  destinationumuzda budur  "+destlabel);
-             /**   for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
-                //     System.out.println("1 fordayım piece.getvalue "+piece.getValue());
-                  //   System.out.println("1 fordayım destination "+destlabel);
+                System.out.println("destinationumuzda budur  "+destlabel);
+                for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+                    //   System.out.println("2 fordayım piece.getvalue "+piece.getValue());
+                    //   System.out.println("2 fordayım destination "+destlabel);
                     if(destlabel.equals(piece.getValue())){
-                    //      System.out.println("1 dardayım gelen veri ");
+                        //  System.out.println("dardayım ");
+                        /**  if(!piece.getKey().substring(0,1).equalsIgnoreCase(opponent.substring(0,1))){
+                         System.out.println(" ilk "+piece.getKey().substring(0,1));
+                         System.out.println(" ikinci "+opponent.substring(0,1));
+                         break;
+                         }*/
+                        piece.setValue("");
                         pieceDesFromFireBase=piece.getKey();
-                        // System.out.println("destination taşı "+ pieceDes);
+                        System.out.println("destination taşı "+ pieceDesFromFireBase);
                     }
-                }*/
+                }
 
 
-             /**   System.out.println("1 niye patlıyorum "+pieceDes);
-                if(!pieceDes.equals("")){
-                    ref.child(opponent).child(pieceDes).setValue("");
-                    pieceDes="";
-                }*/
+
+                //  System.out.println("2 niye patlıyorum "+pieceDes);
+                if(!pieceDesFromFireBase.equals("")){
+                    if(pieceDesFromFireBase.substring(0,1).equalsIgnoreCase(opponent.substring(0,1))){
+                     //   ref.child(opponent).child(pieceDesFromFireBase).setValue("");
+                        System.out.println("ne güncelliyorum  opponent"+opponent+"  piecesDes  "+pieceDesFromFireBase);
+                        pieceDesFromFireBase="";
+                    }
+
+                }
+
 
               //  ref.child(opponent).child(curPiece).setValue(newLocation);
 
