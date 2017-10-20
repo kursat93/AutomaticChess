@@ -72,6 +72,7 @@ public class GameActivity extends AppCompatActivity {
     Boolean isCreator=false;
     String opponent;
     static String pieceDes="";
+    static String pieceDesFromFireBase="";
     @Override
     protected void onCreate(Bundle savedInstanceState) { // sadece katılan için flag koy
         super.onCreate(savedInstanceState);
@@ -393,7 +394,7 @@ public class GameActivity extends AppCompatActivity {
                 String destlabel = getResources().getResourceName(target.getId());
                                 destlabel=destlabel.substring(destlabel.length()-2);
 
-             //   System.out.println("2  destinationumuzda budur  "+destlabel);
+             System.out.println("destinationumuzda budur  "+destlabel);
                 for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
                  //   System.out.println("2 fordayım piece.getvalue "+piece.getValue());
                  //   System.out.println("2 fordayım destination "+destlabel);
@@ -401,7 +402,7 @@ public class GameActivity extends AppCompatActivity {
                       //  System.out.println("dardayım ");
                         piece.setValue("");
                         pieceDes=piece.getKey();
-                     //   System.out.println("2 destination taşı "+ pieceDes);
+                        System.out.println("destination taşı "+ pieceDes);
                     }
                 }
 
@@ -410,10 +411,12 @@ public class GameActivity extends AppCompatActivity {
               //  System.out.println("2 niye patlıyorum "+pieceDes);
                 if(!pieceDes.equals("")){
                     ref.child(opponent).child(pieceDes).setValue("");
+                    System.out.println("ne güncelliyorum  opponent"+opponent+"  piecesDes  "+pieceDes);
                     pieceDes="";
                 }
 
                 ref.child(userColor).child(NcurPiece).setValue(newLocation);
+                System.out.println("ne güncelliyorum 2  usercolor"+userColor+"  ncurpieces  "+NcurPiece+"  new locaiton  "+newLocation );
 
                 //    System.out.println(" pice = " + NcurPiece+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
 
@@ -662,7 +665,7 @@ public class GameActivity extends AppCompatActivity {
                   //   System.out.println("1 fordayım destination "+destlabel);
                     if(destlabel.equals(piece.getValue())){
                     //      System.out.println("1 dardayım gelen veri ");
-                        pieceDes=piece.getKey();
+                        pieceDesFromFireBase=piece.getKey();
                         // System.out.println("destination taşı "+ pieceDes);
                     }
                 }
