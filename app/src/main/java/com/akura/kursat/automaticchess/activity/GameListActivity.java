@@ -60,7 +60,7 @@ public class GameListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                final Room room = (Room) listView.getItemAtPosition(i);
-                System.out.println(room);
+               // System.out.println(room);
 
 
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(GameListActivity.this);
@@ -119,7 +119,7 @@ public class GameListActivity extends AppCompatActivity {
                     Room ssRoom = new Room(room);
                     rooms.add(ssRoom);
 
-                    System.out.println("room ıd budur artık yeter"+room);
+                  //  System.out.println("room ıd budur artık yeter"+room);
                     //updateRoomList(room);
                 }
 

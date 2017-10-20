@@ -450,7 +450,7 @@ public class Rules {
             //king is at the top
         } else if (file == 8 && rank <= 7 && rank >= 2 && file < 9 && rank > 0) {
             if ((Board.tiles[file-1][rank+1].currentPiece.equals(attackerColor+"p") && (findPossibleMoves(Board.tiles[file-1][rank+1].label).contains(Board.tiles[file][rank].label) == true)) || (Board.tiles[file-1][rank-1].currentPiece.equals(attackerColor+"p") && (findPossibleMoves(Board.tiles[file-1][rank-1].label).contains(Board.tiles[file][rank].label) == true))) {
-                System.out.println(file + " " + rank);
+              //  System.out.println(file + " " + rank);
                 return true;
             }
             //king is at the bottom

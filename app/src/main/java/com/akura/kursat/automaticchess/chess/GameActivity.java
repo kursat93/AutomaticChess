@@ -47,6 +47,7 @@ public class GameActivity extends AppCompatActivity {
     public static boolean stalemate = false;
     public static String passant = "";
     String currentLabel;
+    String currentLabelFromFireBase;
     ArrayList<String> validMoves = new ArrayList<String>();
     ArrayList<String> list = new ArrayList<String>();
 
@@ -54,9 +55,13 @@ public class GameActivity extends AppCompatActivity {
     TileView source = null;
     TileView target = null;
 
+    TileView sourceFromFireBase = null;
+    TileView targetFromFireBase = null;
+
     String oldLocation="";
     String newLocation="";
     String pieceName="";
+    String pieceNameFromFireBase="";
     String roomID="";
     FirebaseUser curUser;
     DatabaseReference ref;
@@ -130,10 +135,10 @@ public class GameActivity extends AppCompatActivity {
                         }
 
                     }
-                    System.out.println("buralar  doluuu");
+                  // System.out.println("buralar  doluuu");
                 }else{
-                    System.out.println("Wait for opponent ");
-                    System.out.println("burarlar null");
+                 //  System.out.println("Wait for opponent ");
+                  // System.out.println("burarlar null");
                     Toast.makeText(GameActivity.this, "rakibi bekle", Toast.LENGTH_SHORT).show();
                 }
 
@@ -248,7 +253,7 @@ public class GameActivity extends AppCompatActivity {
         target.currentPiece="";
         target.setImageDrawable(source.getDrawable());
         target.currentPiece = source.currentPiece;
-        System.out.println("1 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
+       // System.out.println("1 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
 
          originPoints =  Mapping.convert(newCordinate);
 
@@ -256,15 +261,15 @@ public class GameActivity extends AppCompatActivity {
          originRank = Character.getNumericValue(originPoints.charAt(1));
         Board.tiles[originFile][originRank].currentPiece=target.currentPiece;
 
-        System.out.println("2 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
+       // System.out.println("2 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
 
-        System.out.println(source.currentPiece);
+       // System.out.println(source.currentPiece);
 
         source.setImageDrawable(null);
-        System.out.println("merhaba ben resim "+source.getDrawable());
+       // System.out.println("merhaba ben resim "+source.getDrawable());
         source.currentPiece = "empty";
 
-        System.out.println("3 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
+      // System.out.println("3 başlangıç noktası "+oldCordinate+" bitiş noktası "+ newCordinate+" başlangıçtaki taş "+source.currentPiece+ " target taş "+target.currentPiece);
 
         /**
          *  TODO: karşıdan hamle geldiğinde şahmat olup olmadığını kontrol et ?  198. satır ?? şahmetla ilgili sanırım
@@ -292,11 +297,11 @@ public class GameActivity extends AppCompatActivity {
         System.out.println(" player  "+player + " turn"+turn);
         if(player.equals("White")&&(turn % 2 != 0)){
             // oynasın
-            System.out.println(" player white "+turn);
+          //  System.out.println(" player white "+turn);
 
         }else if(player.equals("Black")&&(turn % 2 == 0)){
             // oynasın
-            System.out.println(" player black "+turn);
+          //  System.out.println(" player black "+turn);
         }
         else{
             Toast.makeText(getBaseContext(),"not your turn",Toast.LENGTH_LONG).show();
@@ -314,7 +319,7 @@ public class GameActivity extends AppCompatActivity {
           //  System.out.println("after map   "+originPoints);
           //  System.out.println("current label   "+currentLabel);
 
-            for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+            for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){ // taşın gerçek adı belli oluyor
 
                        if(piece.getValue().equals(currentLabel.substring(currentLabel.length()-2))){
                            System.out.println("ben hangi taşım  " +piece.getKey());
@@ -388,20 +393,21 @@ public class GameActivity extends AppCompatActivity {
                 String destlabel = getResources().getResourceName(target.getId());
                                 destlabel=destlabel.substring(destlabel.length()-2);
 
-                System.out.println("  destinationumuzda budur  "+destlabel);
+             //   System.out.println("2  destinationumuzda budur  "+destlabel);
                 for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
-                    System.out.println("fordayım piece.getvalue "+piece.getValue());
-                    System.out.println("fordayım destination "+destlabel);
+                 //   System.out.println("2 fordayım piece.getvalue "+piece.getValue());
+                 //   System.out.println("2 fordayım destination "+destlabel);
                     if(destlabel.equals(piece.getValue())){
-                        System.out.println("dardayım ");
+                      //  System.out.println("dardayım ");
+                        piece.setValue("");
                         pieceDes=piece.getKey();
-                        System.out.println("destination taşı "+ pieceDes);
+                     //   System.out.println("2 destination taşı "+ pieceDes);
                     }
                 }
 
 
 
-                System.out.println("niye patlıyorum "+pieceDes);
+              //  System.out.println("2 niye patlıyorum "+pieceDes);
                 if(!pieceDes.equals("")){
                     ref.child(opponent).child(pieceDes).setValue("");
                     pieceDes="";
@@ -409,19 +415,19 @@ public class GameActivity extends AppCompatActivity {
 
                 ref.child(userColor).child(NcurPiece).setValue(newLocation);
 
-                    System.out.println(" pice = " + NcurPiece+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
+                //    System.out.println(" pice = " + NcurPiece+ "  source loacation=  "+ oldLocation+"  new Location = "+newLocation);
 
 
                 for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
-                        System.out.println("map güncelleme piece "+piece.getKey());
-                    System.out.println("map güncelleme loacal "+NcurPiece);
+                 //       System.out.println("map güncelleme piece "+piece.getKey());
+                 //   System.out.println("map güncelleme loacal "+NcurPiece);
                     if(piece.getKey().equals(NcurPiece)){
                        piece.setValue(newLocation);
-                        System.out.println("map güncellendi  "+NcurPiece+ " burdayım artık  "+newLocation);
+                    //    System.out.println("map güncellendi  "+NcurPiece+ " burdayım artık  "+newLocation);
                         break;
                     }
                 }
-                System.out.println("map güncellendi forun dışındayım  "+pieceOldCordinate.get("bPawnF")+ " burdayım artık  "+newLocation);
+              //  System.out.println("map güncellendi forun dışındayım  "+pieceOldCordinate.get("bPawnF")+ " burdayım artık  "+newLocation);
                 target.setImageDrawable(source.getDrawable());
                 target.currentPiece = source.currentPiece;
 
@@ -531,11 +537,11 @@ public class GameActivity extends AppCompatActivity {
         System.out.println(" player  "+player + " turn"+turn);
         if(opponent.equals("White")&&(turn % 2 != 0)){
             // oynasın
-            System.out.println(" player white "+turn);
+          //  System.out.println(" player white "+turn);
 
         }else if(opponent.equals("Black")&&(turn % 2 == 0)){
             // oynasın
-            System.out.println(" player black "+turn);
+          //  System.out.println(" player black "+turn);
         }
         else{
             Toast.makeText(getBaseContext(),"not your turn",Toast.LENGTH_LONG).show();
@@ -548,6 +554,7 @@ public class GameActivity extends AppCompatActivity {
         for(Object piece:keySet){
             if(pieceN.equals(piece)){
                 oldCor=pieceOldCordinate.get(piece);
+              //  System.out.println("1 old cord "+oldCor);   //// bunu koydum
             }
         }
 
@@ -558,20 +565,22 @@ public class GameActivity extends AppCompatActivity {
        // TileView   target = (TileView) findViewById(nid);
 
             //source = (TileView) touchedTile;
-           source = (TileView) findViewById(oid);
+           sourceFromFireBase = (TileView) findViewById(oid);
+            if(sourceFromFireBase!=null){
+                currentLabelFromFireBase = getResources().getResourceName(sourceFromFireBase.getId()); // ID si kare kordinatı
+            }
 
-            currentLabel = getResources().getResourceName(source.getId()); // ID si kare kordinatı
-            if(source.getDrawable() == null) // karede taş yok
-                return;
+          //  if(source.getDrawable() == null) // karede taş yok
+            //    return;
             //  System.out.println("cur labp   "+currentLabel);
-            String originPoints =  Mapping.convert(currentLabel.substring(currentLabel.length()-2)); // örnek a5 den a yı gönderiyor
+            String originPoints =  Mapping.convert(currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2)); // örnek a5 den a yı gönderiyor
             //  System.out.println("after map   "+originPoints);
             //  System.out.println("current label   "+currentLabel);
 
             for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
 
-                if(piece.getValue().equals(currentLabel.substring(currentLabel.length()-2))){
-                    System.out.println(piece.getKey());
+                if(piece.getValue().equals(currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2))){
+                  //  System.out.println("1 bu ne curPiece "+piece.getKey());   ////// buda yeni
                     curPiece=piece.getKey();
                 }
             }// burayı yoruma ldım
@@ -582,8 +591,9 @@ public class GameActivity extends AppCompatActivity {
             // System.out.println("origin file  "+originFile);
             // System.out.println("orşgşn rank  "+originRank);
 
-            oldLocation = currentLabel.substring(currentLabel.length()-2);   // sonradan eklendi for firebase
-            pieceName = Board.tiles[originFile][originRank].currentPiece;
+            oldLocation = currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2);   // sonradan eklendi for firebase
+            pieceNameFromFireBase = Board.tiles[originFile][originRank].currentPiece;
+      //  System.out.println("1 piece name "+pieceNameFromFireBase); // yeni bu
 
             //  System.out.println(" bu nedir bu "+Board.tiles[originFile][originRank].currentPiece.charAt(0));
             // System.out.println(" bu nedir bu "+Board.tiles[originFile][originRank].currentPiece);
@@ -594,27 +604,32 @@ public class GameActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            validMoves = Rules.findPossibleMoves( currentLabel.substring(currentLabel.length()-2) );
+            validMoves = Rules.findPossibleMoves( currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2) );
             if(validMoves.isEmpty()) {
                 Toast.makeText(GameActivity.this, "Nothing is possible with that piece\nTry again...",
                         Toast.LENGTH_SHORT).show();
                 return;
             }
+
             //at this point it is safe to act on this piece
            // firstSelection = false;
 
            // target = (TileView) touchedTile;
-         target = (TileView) findViewById(nid);
-            String startingLabel = currentLabel.substring(currentLabel.length()-2);
-            currentLabel = getResources().getResourceName(target.getId());
+         targetFromFireBase = (TileView) findViewById(nid);
+            String startingLabel = currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2);
+       // System.out.print(target.getId());
+        if(targetFromFireBase!=null){
+            currentLabelFromFireBase = getResources().getResourceName(targetFromFireBase.getId());
+        }
 
-            if(target != source) {
+
+            if(targetFromFireBase != sourceFromFireBase) {
                 boolean foundMatch = false;
                 for (String z : validMoves) {
-                    if (z.equals(currentLabel.substring(currentLabel.length() - 2))) {
+                    if (z.equals(currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2))) {
                         boolean leftKingInCheck;
-                        newLocation = currentLabel.substring(currentLabel.length() - 2);
-                        leftKingInCheck = !executeMove(startingLabel, currentLabel.substring(currentLabel.length() - 2), "", true, 0);
+                        newLocation = currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2);
+                        leftKingInCheck = !executeMove(startingLabel, currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2), "", true, 0);
                         if (leftKingInCheck) {
                             Toast.makeText(GameActivity.this, "Don't leave your king in check!\nTry again...",
                                     Toast.LENGTH_SHORT).show();
@@ -638,25 +653,46 @@ public class GameActivity extends AppCompatActivity {
                  *  TODO: Burda Firebase'i güncelle
                  */
 
-                ref.child(opponent).child(curPiece).setValue(newLocation);
+                String destlabel = getResources().getResourceName(targetFromFireBase.getId());
+                destlabel=destlabel.substring(destlabel.length()-2);
 
-                System.out.println(" pice = " + pieceName + "  source loacation=  " + oldLocation + "  new Location = " + newLocation);
+             //   System.out.println("1  destinationumuzda budur  "+destlabel);
+                for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+                //     System.out.println("1 fordayım piece.getvalue "+piece.getValue());
+                  //   System.out.println("1 fordayım destination "+destlabel);
+                    if(destlabel.equals(piece.getValue())){
+                    //      System.out.println("1 dardayım gelen veri ");
+                        pieceDes=piece.getKey();
+                        // System.out.println("destination taşı "+ pieceDes);
+                    }
+                }
+
+
+             /**   System.out.println("1 niye patlıyorum "+pieceDes);
+                if(!pieceDes.equals("")){
+                    ref.child(opponent).child(pieceDes).setValue("");
+                    pieceDes="";
+                }*/
+
+              //  ref.child(opponent).child(curPiece).setValue(newLocation);
+
+             //   System.out.println(" pice = " + curPiece + "  source loacation=  " + oldLocation + "  new Location = " + newLocation);
 
                 for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
-
-                    if(piece.getKey().equals(pieceName)){
+  //  System.out.println("lolo piecename "+curPiece);
+                    if(piece.getKey().equals(curPiece)){
                         piece.setValue(newLocation);
                     }
                 }
 
 
-                target.setImageDrawable(source.getDrawable());
-                target.currentPiece = source.currentPiece;
-                source.setImageDrawable(null);
-                source.currentPiece = "empty";
+                targetFromFireBase.setImageDrawable(sourceFromFireBase.getDrawable());
+                targetFromFireBase.currentPiece = sourceFromFireBase.currentPiece;
+                sourceFromFireBase.setImageDrawable(null);
+                sourceFromFireBase.currentPiece = "empty";
 
                 //add to list
-                list.add(startingLabel + " " + currentLabel.substring(currentLabel.length() - 2));
+                list.add(startingLabel + " " + currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2));
 
                 /*TODO: Need to incorporate some UI elements that indicate check and checkmate!*/
                 boolean putEnemyInCheck;
@@ -754,13 +790,13 @@ public class GameActivity extends AppCompatActivity {
         int originFile = Character.getNumericValue(origin.charAt(0));
         int originRank = Character.getNumericValue(origin.charAt(1));
         String originPiece = Board.tiles[originFile][originRank].currentPiece;
-        System.out.println("orşgşn piecw "+ originPiece);
+      //  System.out.println("orşgşn piecw "+ originPiece);
 
         destination = Mapping.convert(destination);
         int destinationFile = Character.getNumericValue(destination.charAt(0));
         int destinationRank = Character.getNumericValue(destination.charAt(1));
         String destinationPiece = Board.tiles[destinationFile][destinationRank].currentPiece;
-        System.out.println("destination piecw "+ destinationPiece);
+      //  System.out.println("destination piecw "+ destinationPiece);
 
         Board.tiles[destinationFile][destinationRank].currentPiece = originPiece;
         Board.tiles[originFile][originRank].currentPiece = "empty";

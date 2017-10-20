@@ -134,7 +134,7 @@ public class CreateGameActivity extends AppCompatActivity {
                      }*/
                     reference.child(mRoomId).child("room_id").setValue(mRoomId);
                     reference.child(mRoomId).child("roomName").setValue(roomName);
-                    System.out.println("name name name "+ host);
+                 //   System.out.println("name name name "+ host);
                     reference.child(mRoomId).child("hostName").setValue(host); // user Name
 
                     Intent intent = new Intent(CreateGameActivity.this, com.akura.kursat.automaticchess.chess.GameActivity.class);
