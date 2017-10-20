@@ -49,6 +49,7 @@ public class GameActivity extends AppCompatActivity {
     String currentLabel;
     String currentLabelFromFireBase;
     ArrayList<String> validMoves = new ArrayList<String>();
+    ArrayList<String> validMovesFromFireBase = new ArrayList<String>();
     ArrayList<String> list = new ArrayList<String>();
 
     boolean firstSelection = true;
@@ -60,6 +61,8 @@ public class GameActivity extends AppCompatActivity {
 
     String oldLocation="";
     String newLocation="";
+    String oldLocationFromFireBase="";
+    String newLocationFromFireBase="";
     String pieceName="";
     String pieceNameFromFireBase="";
     String roomID="";
@@ -594,7 +597,7 @@ public class GameActivity extends AppCompatActivity {
             // System.out.println("origin file  "+originFile);
             // System.out.println("orşgşn rank  "+originRank);
 
-            oldLocation = currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2);   // sonradan eklendi for firebase
+            oldLocationFromFireBase = currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2);   // sonradan eklendi for firebase
             pieceNameFromFireBase = Board.tiles[originFile][originRank].currentPiece;
       //  System.out.println("1 piece name "+pieceNameFromFireBase); // yeni bu
 
@@ -607,8 +610,8 @@ public class GameActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            validMoves = Rules.findPossibleMoves( currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2) );
-            if(validMoves.isEmpty()) {
+            validMovesFromFireBase = Rules.findPossibleMoves( currentLabelFromFireBase.substring(currentLabelFromFireBase.length()-2) );
+            if(validMovesFromFireBase.isEmpty()) {
                 Toast.makeText(GameActivity.this, "Nothing is possible with that piece\nTry again...",
                         Toast.LENGTH_SHORT).show();
                 return;
@@ -628,10 +631,10 @@ public class GameActivity extends AppCompatActivity {
 
             if(targetFromFireBase != sourceFromFireBase) {
                 boolean foundMatch = false;
-                for (String z : validMoves) {
+                for (String z : validMovesFromFireBase) {
                     if (z.equals(currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2))) {
                         boolean leftKingInCheck;
-                        newLocation = currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2);
+                        newLocationFromFireBase = currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2);
                         leftKingInCheck = !executeMove(startingLabel, currentLabelFromFireBase.substring(currentLabelFromFireBase.length() - 2), "", true, 0);
                         if (leftKingInCheck) {
                             Toast.makeText(GameActivity.this, "Don't leave your king in check!\nTry again...",
@@ -656,11 +659,11 @@ public class GameActivity extends AppCompatActivity {
                  *  TODO: Burda Firebase'i güncelle
                  */
 
-                String destlabel = getResources().getResourceName(targetFromFireBase.getId());
-                destlabel=destlabel.substring(destlabel.length()-2);
+              //  String destlabel = getResources().getResourceName(targetFromFireBase.getId());
+              //  destlabel=destlabel.substring(destlabel.length()-2);
 
              //   System.out.println("1  destinationumuzda budur  "+destlabel);
-                for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
+             /**   for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
                 //     System.out.println("1 fordayım piece.getvalue "+piece.getValue());
                   //   System.out.println("1 fordayım destination "+destlabel);
                     if(destlabel.equals(piece.getValue())){
@@ -668,7 +671,7 @@ public class GameActivity extends AppCompatActivity {
                         pieceDesFromFireBase=piece.getKey();
                         // System.out.println("destination taşı "+ pieceDes);
                     }
-                }
+                }*/
 
 
              /**   System.out.println("1 niye patlıyorum "+pieceDes);
@@ -684,7 +687,7 @@ public class GameActivity extends AppCompatActivity {
                 for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){
   //  System.out.println("lolo piecename "+curPiece);
                     if(piece.getKey().equals(curPiece)){
-                        piece.setValue(newLocation);
+                        piece.setValue(newLocationFromFireBase);
                     }
                 }
 
