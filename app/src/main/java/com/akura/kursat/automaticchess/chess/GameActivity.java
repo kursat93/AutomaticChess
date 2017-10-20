@@ -403,6 +403,11 @@ public class GameActivity extends AppCompatActivity {
                  //   System.out.println("2 fordayım destination "+destlabel);
                     if(destlabel.equals(piece.getValue())){
                       //  System.out.println("dardayım ");
+                        if(!piece.getKey().substring(0,1).equalsIgnoreCase(opponent.substring(0,1))){
+                            System.out.println(" ilk "+piece.getKey().substring(0,1));
+                            System.out.println(" ikinci "+opponent.substring(0,1));
+                            break;
+                        }
                         piece.setValue("");
                         pieceDes=piece.getKey();
                         System.out.println("destination taşı "+ pieceDes);
