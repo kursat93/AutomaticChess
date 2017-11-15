@@ -11,12 +11,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.akura.kursat.automaticchess.R;
-import com.akura.kursat.automaticchess.activity.GameListActivity;
 import com.akura.kursat.automaticchess.activity.HomePageActivity;
-import com.akura.kursat.automaticchess.model.Pieces;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,9 +25,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 public class GameActivity extends AppCompatActivity {
@@ -51,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<String> validMoves = new ArrayList<String>();
     ArrayList<String> validMovesFromFireBase = new ArrayList<String>();
     ArrayList<String> list = new ArrayList<String>();
-
+    DatabaseReference ingame = null;
     boolean firstSelection = true;
     TileView source = null;
     TileView target = null;
@@ -76,6 +71,8 @@ public class GameActivity extends AppCompatActivity {
     String opponent;
     static String pieceDes="";
     static String pieceDesFromFireBase="";
+    String opponentId ="";
+    Boolean roomProcess=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) { // sadece katılan için flag koy
         super.onCreate(savedInstanceState);
@@ -93,6 +90,8 @@ public class GameActivity extends AppCompatActivity {
          *  TODO: buraya gelirken oda ID ve renk getir
          */
         loadMap();
+
+
         Board.initilaizeFirebase(roomID,userColor);
 
         curUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -116,6 +115,35 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
+        DatabaseReference opponentUser = FirebaseDatabase.getInstance().getReference("rooms").child(roomID).child("player"+opponent);
+        System.out.println(opponentId+"en basta alıyo muyum opponent id yi");
+
+
+
+        System.out.println(roomProcess);
+
+        // otomatik çıkma biri çıktığında
+            opponentUser.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    opponentId = (String) dataSnapshot.getValue();
+                    if(!roomProcess){
+                        roomProcess=true;
+                    }
+                    else{
+                        /// burda null sa  çıkacak roomdan user ıd lik ısm kontrokü
+                    }
+                    System.out.println(opponentId+" opponent id miz burda");
+
+
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
 
         ref.child(opponent).addValueEventListener(new ValueEventListener() {
             @Override
@@ -123,7 +151,6 @@ public class GameActivity extends AppCompatActivity {
                 Map<String,String> list = (Map<String, String>) dataSnapshot.getValue();
 
                 if(list!= null){
-
 
 
                     for(Map.Entry<String,String> pieceOfBoard:pieceOldCordinate.entrySet()){
@@ -161,7 +188,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     protected void loadMap(){
-        if(pieceOldCordinate.isEmpty()){
+        pieceOldCordinate.clear();
 
                 pieceOldCordinate.put("wKing","e1");
                 pieceOldCordinate.put("wQueen","d1");
@@ -199,7 +226,7 @@ public class GameActivity extends AppCompatActivity {
                 pieceOldCordinate.put("bPawnH","h7");
 
 
-        }
+
 
     }
 
@@ -324,9 +351,10 @@ public class GameActivity extends AppCompatActivity {
           //  System.out.println("current label   "+currentLabel);
 
             for(Map.Entry<String,String> piece:pieceOldCordinate.entrySet()){ // taşın gerçek adı belli oluyor
-
+                      System.out.println("ben hangi yerim  " +piece.getValue());
+                System.out.println("ben hangi yeere bakıyorum  " +currentLabel.substring(currentLabel.length()-2));
                        if(piece.getValue().equals(currentLabel.substring(currentLabel.length()-2))){
-                           System.out.println("ben hangi taşım  " +piece.getKey());
+                           System.out.println("ben hangi taşım beeennnnn  " +piece.getKey());
                            if(opponent.substring(0,1).equalsIgnoreCase(piece.getKey().substring(0,1))) {
                                Toast.makeText(getBaseContext(), " yanlış taş ", Toast.LENGTH_LONG).show();
                                return;
@@ -973,9 +1001,7 @@ public class GameActivity extends AppCompatActivity {
                         Intent intent = new Intent(GameActivity.this, HomePageActivity.class);
                         // String message = "abc";
                         // intent.putExtra(EXTRA_MESSAGE, message);
-                      if(isCreator){
-                          ref.removeValue();
-                      }
+                      closeGame();
                         startActivity(intent);
                         dialog.dismiss();
                         finish();
@@ -997,7 +1023,17 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       // super.onBackPressed();
-        //odayı sil userin içinden de room id yi sil
+      exitGame();
+    }
+
+
+    public void closeGame(){
+        ref.child("player"+userColor).removeValue();
+        if(isCreator){
+            ref.removeValue();
+        }
+        refUser.removeValue();
+        pieceDes="";
+        pieceDesFromFireBase="";
     }
 }

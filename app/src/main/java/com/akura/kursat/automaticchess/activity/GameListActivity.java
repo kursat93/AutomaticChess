@@ -14,6 +14,8 @@ import com.akura.kursat.automaticchess.R;
 import com.akura.kursat.automaticchess.adapter.RoomAdapter;
 import com.akura.kursat.automaticchess.chess.*;
 import com.akura.kursat.automaticchess.model.Room;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +42,8 @@ public class GameListActivity extends AppCompatActivity {
         rooms =new ArrayList<>();
         listView =(ListView)findViewById(R.id.list_room);
         Button create = (Button)findViewById(R.id.btn_create_room);
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final FirebaseUser Buser = FirebaseAuth.getInstance().getCurrentUser();
 
         /**
          * oda oluşturmaya gir
@@ -77,6 +81,7 @@ public class GameListActivity extends AppCompatActivity {
                                 dialog.cancel();
                                 Intent intent = new Intent(GameListActivity.this, com.akura.kursat.automaticchess.chess.GameActivity.class);
 
+                                database.child("rooms").child(room.getRoom_id()).child("playerBlack").setValue(Buser.getUid());
 
                                 String choosenColor = "Black";
                                 intent.putExtra("roomID",room.getRoom_id());
@@ -106,7 +111,7 @@ public class GameListActivity extends AppCompatActivity {
          */
 
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
 
         database.child("rooms").addValueEventListener(new ValueEventListener() {
             @Override
