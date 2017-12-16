@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.akura.kursat.automaticchess.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,9 +24,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        SharedPreferences sharedpreferences = getSharedPreferences(getString(R.string.key_pref_name), Context.MODE_PRIVATE);
+        SharedPreferences sharedpreferences = getSharedPreferences("loginsave", Context.MODE_PRIVATE);
 
-        boolean isLogged = sharedpreferences.getBoolean(getString(R.string.user_logged), false);
+        boolean isLogged = sharedpreferences.getBoolean(getString(R.string.user_logged),false);
+        Toast.makeText(getBaseContext(),isLogged+""+isMainStarted,Toast.LENGTH_LONG).show();
         if (isLogged) {
             if (isMainStarted) {
                 return;

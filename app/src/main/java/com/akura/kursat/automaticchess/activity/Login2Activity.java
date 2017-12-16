@@ -1,9 +1,11 @@
 package com.akura.kursat.automaticchess.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +48,7 @@ public class Login2Activity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        sharedpreferences = getSharedPreferences("loginsave", Context.MODE_PRIVATE);
         Auth = FirebaseAuth.getInstance();
         EmailView = (AutoCompleteTextView) findViewById(R.id.text_email);
         PasswordView = (EditText) findViewById(R.id.text_password);
@@ -103,9 +106,18 @@ public class Login2Activity extends AppCompatActivity {
 
                                     DatabaseReference dbr = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
 
-                                   // SharedPreferences.Editor editor = sharedpreferences.edit();
-                                    //editor.putBoolean(getString(R.string.user_logged), true);
-                                    //editor.apply();
+                                 //   SharedPreferences.Editor editor = sharedpreferences.edit();
+                                 //   editor.putBoolean(getString(R.string.user_logged), true);
+                                  //  editor.apply();
+
+
+                                SharedPreferences sharedPreferences = PreferenceManager
+                                        .getDefaultSharedPreferences(getBaseContext());
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean(getString(R.string.user_logged), true);
+                                editor.apply();
+
+
                                     Intent intent = new Intent(Login2Activity.this, HomePageActivity.class);
                                // myProgressDialog.show();
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

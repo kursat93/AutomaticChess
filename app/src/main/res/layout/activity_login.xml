@@ -24,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:onClick="signin"
-        android:text="Giriş Yap" />
+        android:text="Giriş Yap"
+        android:theme="@style/MyButton"/>
 
     <Button
         android:id="@+id/btn_register"
@@ -32,7 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:onClick="register"
-        android:text="Kayıt Ol" />
+        android:text="Kayıt Ol"
+        android:theme="@style/MyButton"/>
     </LinearLayout>
 
 </LinearLayout>

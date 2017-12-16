@@ -27,13 +27,11 @@
 
     <Button
         android:id="@+id/btn_login2_signin"
-        style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
         android:text="Giriş Yap"
-        android:textColor="@android:color/white"
+        android:theme="@style/MyButton"
         android:textStyle="bold" />
 
     <LinearLayout
