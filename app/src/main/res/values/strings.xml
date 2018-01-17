@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">AutomaticChess</string>
-    <string name="title_activity_home_page">HomePage</string>
+    <string name="title_activity_home_page">AutomaticChess</string>
     <string name="title_activity_crate_game">CreateGame</string>
     <string name="title_activity_game_list">GameList</string>
 

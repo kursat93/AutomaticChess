@@ -47,13 +47,12 @@ public class CreateGameActivity extends AppCompatActivity {
         colorList.add("Wlack");
 
         roomNameTxt = (EditText)findViewById(R.id.name_room);
-        color = (Spinner)findViewById(R.id.color_choose);
 
         Button create = (Button)findViewById(R.id.btn_create);
 
 
         adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,colorList);
-        color.setAdapter(adapter);
+
 
       //   user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -62,7 +61,7 @@ public class CreateGameActivity extends AppCompatActivity {
 
 /**
  *  spinner
- */
+
         color.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -85,7 +84,7 @@ public class CreateGameActivity extends AppCompatActivity {
 
         });
 
-/**
+
  *  spinner son
  */
 
